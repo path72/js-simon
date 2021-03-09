@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- *** [ FONTS ] *** -->
+		<link rel="preconnect" href="https://fonts.gstatic.com">
+		<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+		<!-- *** [ FONT AWESOME ] *** -->
+		<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" /> -->
+		<!-- *** [ MY CSS ] *** -->
+		<link rel="stylesheet" href="css/master.css">
+		<!-- *** [ JQUERY - Google CDN ] *** -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<!-- *** [ MY JS ] *** -->
+		<script type="text/javascript" src="js/main.js"></script>
+		<!-- *** *** -->
+		<link rel="shortcut icon" href="#">
+		<title>Simon Says</title>
+	</head>
+	<body>
+
+		<!------------------------------------------
+
+		Esercizio di oggi: Simon Says
+		repo/cartella js-simon
+
+		Un alert espone 5 numeri casuali diversi.
+
+		Dopo 30 secondi l’utente deve inserire, un prompt alla volta, i numeri che ha visto precedentemente.
+
+		Una volta inseriti i 5 numeri, il software dice quanti e quali numeri sono stati ricordati.
+
+		Consigli del giorno:
+		* Pensate prima in italiano.
+		* Dividete in piccoli problemi la consegna.
+		* Individuate gli elementi di cui avete bisogno per realizzae il programma.
+
+		Bonus:
+		visualizzare il tutto sulla pagina HTML senza alert
+		Sviluppare il "vero" SimonSays, per gli amici: "FedericaSays" :wink:
+		Buon lavoro!
+
+		------------------------------------------->
+
+		<main>
+			<section>
+				<div class="number_display">
+					<div class="card">
+						<div class="ms_txt_2">Numeri da ricordare</div>
+						<div class="num_list ms_txt_1"></div>
+					</div>
+				</div>
+				<div class="input_form">
+					<div class="card">
+						<label id="usr_number_label" for="usr_attempt" class="ms_txt_1"></label>
+						<input id="usr_number" type="number" name="usr_number" placeholder="" required>
+						<button id="usr_number_btn">Inserisci</button>
+					</div>
+				</div>
+				<div class="result">
+					<div class="card">
+						<div class="ms_txt_2">Numeri ricordati</div>
+						<div class="result_list ms_txt_1"></div>
+					</div>
+				</div>
+			</section>
+		</main>
+
+
+
+
+	</body>
+</html>
