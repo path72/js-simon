@@ -4,19 +4,9 @@
 $(function() {
 // ********************* doc ready start ***
 
-var N =  3 // numero di numeri da ricordare
-var usrSet = []; // numeri dell'utente
-var T = 1 // secondi di visualizzazione dei numeri
-var maxN = 100; 
 
-// numeri da indovinare
-var numSet = numSetGen(N,maxN);
-
-// inserimento numeri utente 
-$('#usr_number_btn').click(function() { getUsrNum(numSet, usrSet); });
-
-// mostra i numeri 
-numShow(numSet,T);
+// ** KICK-OFF **
+mainInit();
 
 
 // *********************** doc ready end ***
@@ -25,46 +15,162 @@ numShow(numSet,T);
 //###################################################### 
 // FUNCTIONS
 
-function getResult(_numSet,_usrSet) {
-	var areIn = [];
-	for (var i=0; i<_usrSet.length; i++) {
-		if (_numSet.includes(_usrSet[i])) {
-			areIn.push(_usrSet[i]);
-		}
-	}
-	console.log('areIn: '+areIn);
-	var msg;
-	if (areIn.length != 0) {
-		if (areIn.length == _numSet.length) {
-			msg = 'tutti!';
+function mainInit() {
+
+	$('.input_form_game').fadeIn(500);
+
+	$('#usr_game_btn').click(function() { 
+
+		// form data retrieving
+		var usrListLengthForm = $('#usr_list_length');
+		var usrTimeForm = $('#usr_time');
+		listLength = parseInt(usrListLengthForm.val()); // numero di numeri da ricordare
+		time = parseInt(usrTimeForm.val()); // secondi di visualizzazione dei numeri
+
+		var usrSet = []; // numeri dell'utente
+		var maxN = 100; // range numerico random
+
+		// check
+		if (isNaN(listLength) || isNaN(time)) {
+			$('.msg_text').html('qualcosa non va, riprova!');
+			$('.msg').fadeIn(500, function(){
+				setTimeout(function() {
+					$('.msg').fadeOut(500);
+				}, 1000);
+			});
+			console.log('qualcosa non va');
 		} else {
-			msg = areIn.length+', ovvero: '+areIn;
+			gameInit(listLength,usrSet,time,maxN);
 		}
-	} else {
-		msg = 'nessuno!';
+	
+	});
+
+}
+
+function gameInit(_N,_usrSet,_time,_maxN) {
+
+	// random number set
+	var numSet = numSetGen(_N,_maxN);
+
+	// form interactions
+	$('#usr_number_btn').click(function() { getUsrNum(numSet, _usrSet); });
+	$('#usr_number').keyup(function(_ev) {
+		if (_ev.keyCode == 13) { getUsrNum(numSet, _usrSet);  }
+	});	
+
+	// number set showing 
+	numShow(numSet,_usrSet,_time);
+
+}
+
+function numShow(_numSet,_usrSet,_time) {
+
+	// deploy num list
+	for (var i=0; i<_numSet.length; i++) {
+		var sep = (i<(_numSet.length-1)) ? ', ' : '';
+		$('.num_list').append(_numSet[i]+sep);	
 	}
-	$('.result_list').html(msg);
-	$('.number_display').fadeIn(500);
-	$('.result').fadeIn(500);
+
+	// display num list panel 
+	$('.number_display').fadeIn(500, function(){
+		console.log('timer start');
+		setTimeout(function() {
+			console.log('timer stop');
+			$('.number_display').fadeOut(500, askNum(_usrSet));
+			;
+		}, _time*1000);
+	});
+
+}
+
+function askNum(_usrSet) {
+
+	// display form
+	askMsgUpdate(_usrSet);
+	$('.input_form').fadeIn(500);
+	$("#usr_number").focus();
+
+}
+
+function askMsgUpdate(_usrSet) {
+	$('#usr_number_label').html('Tentativo #'+(_usrSet.length+1));
 }
 
 function getUsrNum(_numSet,_usrSet) {
-	var usrNumberForm = document.getElementById('usr_number');
-	usrNum = parseInt(usrNumberForm.value);
+
+	// form data retrieving
+	var usrNumberForm = $('#usr_number');
+	usrNum = parseInt(usrNumberForm.val());
+
+	// data check
 	if (!_usrSet.includes(usrNum)) {
 		_usrSet.push(usrNum);
+		console.log(_usrSet);
 	} else {
-		console.log(usrNum+' è già presente!');
+		$('.msg_text').html(usrNum+' è già presente, riprova!');
+		$('.msg').fadeIn(500, function(){
+			setTimeout(function() {
+				$('.msg').fadeOut(500);
+			}, 1000);
+		});
+		console.log(usrNum+' presente');
 	}
-	usrNumberForm.value = '';
+
+	// form cleaning
+	usrNumberForm.val('');
+	askMsgUpdate(_usrSet);
+	$("#usr_number").focus();
+
+	// user number set complete 
 	if (_usrSet.length == _numSet.length ) {
 		$('.input_form').fadeOut(500, getResult(_numSet,_usrSet));
 	}
+
 }
 
-function askNum() {
-	$('.input_form').fadeIn(500);
+function getResult(_numSet,_usrSet) {
+
+	// right number collection 
+	var areIn = [];
+	for (var i=0; i<_usrSet.length; i++) {
+		if (_numSet.includes(_usrSet[i])) areIn.push(_usrSet[i]);
+	}
+	console.log('areIn: '+areIn);
+
+	// final message
+	finalMsg(_numSet,areIn);
+
 }
+
+function finalMsg(_numSet,_areIn) {
+
+	// final message deploy
+	var msg;
+	if (_areIn.length != 0) {
+		if (_areIn.length == _numSet.length) msg = 'tutti!';
+		else msg = ''+_areIn;
+	} else {
+		msg = 'nessuno!';
+	}
+
+	// message showing
+	$('.result').find('div:nth-child(3)').append(' <span class="highlight">'+_areIn.length+'</span>');
+	$('.result_list').append(msg);
+	$('.result').fadeIn(500, function() {
+		setTimeout(function() {
+			$('.result').fadeOut(500);
+			$('#usr_list_length').val('');
+			$('#usr_time').val('');
+			$('.num_list').html('');
+		}, 4000);
+	});
+
+}
+
+
+
+
+
 
 function numSetGen(_N,_maxN) {
 	var numSet = [];
@@ -72,23 +178,6 @@ function numSetGen(_N,_maxN) {
 		numSet.push(randomNumber(1,_maxN));
 	}
 	return numSet;
-}
-
-function numShow(_arr,_time) {
-	var html = '';
-	for (var i=0; i<_arr.length; i++) {
-		var sep = (i<(_arr.length-1)) ? ', ' : '';
-		html += _arr[i]+sep;
-	}
-	$('.num_list').html(html);
-	$('.number_display').fadeIn(500, function(){
-		console.log('start');
-		setTimeout(function() {
-			console.log('stop');
-			$('.number_display').fadeOut(500, askNum());
-			;
-		}, _time*1000);
-	});
 }
 
 function randomNumber(_a,_b) {

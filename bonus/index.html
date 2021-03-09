@@ -44,31 +44,48 @@
 		------------------------------------------->
 
 		<main>
+
 			<section>
-				<div class="number_display">
-					<div class="card">
-						<div class="ms_txt_2">Numeri da ricordare</div>
-						<div class="num_list ms_txt_1"></div>
+				<div class="card">
+					<div class="input_form_game">
+						<div class="center">
+							<label id="usr_list_length_label" for="usr_list_length" class="ms_txt_1">Quanti numeri vuoi ricordare?</label>
+							<input id="usr_list_length" type="number" name="usr_list_length" required>
+							<label id="usr_time_label" for="usr_time" class="ms_txt_1">Quanti tempo vuoi vederli?</label>
+							<input id="usr_time" type="number" name="usr_time" required>
+							<button id="usr_game_btn">Inizia</button>
+						</div>
 					</div>
-				</div>
-				<div class="input_form">
-					<div class="card">
-						<label id="usr_number_label" for="usr_attempt" class="ms_txt_1"></label>
-						<input id="usr_number" type="number" name="usr_number" placeholder="" required>
-						<button id="usr_number_btn">Inserisci</button>
+					<div class="number_display">
+						<div class="center">
+							<div class="ms_txt_1">Numeri da ricordare</div>
+							<div class="num_list ms_txt_2"></div>
+						</div>
 					</div>
-				</div>
-				<div class="result">
-					<div class="card">
-						<div class="ms_txt_2">Numeri ricordati</div>
-						<div class="result_list ms_txt_1"></div>
+					<div class="input_form">
+						<div class="center">
+							<label id="usr_number_label" for="usr_number" class="ms_txt_1"></label>
+							<input id="usr_number" type="number" name="usr_number" required>
+							<button id="usr_number_btn">Inserisci</button>
+						</div>
+					</div>
+					<div class="result">
+						<div class="center">
+							<div class="ms_txt_1">Numeri da ricordare</div>
+							<div class="num_list ms_txt_2"></div>
+							<div class="ms_txt_1">Numeri ricordati</div>
+							<div class="result_list ms_txt_2"></div>
+						</div>
+					</div>
+					<div class="msg">
+						<div class="center">
+							<div class="msg_text ms_txt_2"></div>
+						</div>
 					</div>
 				</div>
 			</section>
+
 		</main>
-
-
-
 
 	</body>
 </html>

@@ -29,17 +29,83 @@ a:hover {
 }
 
 /****************************************************************
-**  X
+**  STRUTTURA
 */
 section {
 	display: flex;
 	justify-content: center;
 }
-main .number_display,
-main .input_form,
-main .result {
+.card {
+	position: relative;
+	width: 300px;
+	height: 300px;
+	margin: 15px 15px 30px;
+	color: var(--black);
+	border-radius: 5px;
+	overflow: hidden;
+	background-color: var(--realwhite);
+	box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+	/* border: 1px solid red; */
+}
+.input_form_game,
+.number_display,
+.input_form,
+.result,
+.msg {
 	display: none;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	z-index: 1;
+	width: 100%;
+	height: 100%;
 	text-align: center;
+	background-color: var(--realwhite);
+	/* border: 1px solid red; */
+}
+.center {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+}
+.msg {
+	z-index: 2;
+}
+input {
+	padding: 8px;
+	width: 100px;
+	border: 2px solid var(--black);
+	border-radius: 5px;
+	color: var(--black);
+	background-color: var(--white);
+	outline: none;
+	margin: 10px;
+}
+input:focus {
+	color: var(--white);
+	background-color: var(--black);
+	outline: none;
+}
+button {
+	padding: 10px 20px;
+	border-radius: 10px;
+	border: none;
+	background-color: var(--green);
+	color: var(--white);
+	cursor: pointer;
+}
+button:hover {
+	background-color: var(--white);
+	color: var(--black);
+}
+button:focus {
+	outline: none;
+}
+.highlight {
+	color: var(--purple);
+	font-weight: 700;
 }
 
 
@@ -70,14 +136,14 @@ font-size: 1.1em;
 font-weight: 500;
 } */
 .ms_txt_1 {
+	font-size: 1em;
+	/* font-weight: 700; */
+}
+.ms_txt_2 {
 	font-size: 1.2em;
 	font-weight: 700;
+	margin-bottom: 10px;
 }
-/* .ms_txt_2 {
-	font-size: 1.5em;
-	font-weight: 200;
-	line-height: 1.5em;
-} */
 /* .ms_txt_small_1 {
 	font-size: 0.9em;
 	font-weight: 600; 
@@ -133,17 +199,6 @@ font-weight: 500;
 	clear: both;
 }
 
-/****************************************************************
-**  CARD
-*/
-.card {
-	margin: 15px 15px 30px;
-	padding: 30px 50px;
-	color: var(--black);
-	border-radius: 5px;
-	background-color: var(--realwhite);
-	box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
-}
 
 /****************************************************************
 **  MEDIA QUERIES
