@@ -78,11 +78,20 @@ function numShow(_numSet,_usrSet,_time) {
 		var sep = (i<(_numSet.length-1)) ? ', ' : '';
 		$('.num_list').append(_numSet[i]+sep);	
 	}
+	
+	// countdown
+	var sec = _time;
+	$('.countdown').html('~ '+sec+' ~');
+	var countdown = setInterval(function() {
+		sec--;
+		$('.countdown').html('~ '+sec+' ~');
+	},1000);
 
 	// display num list panel 
 	$('.number_display').fadeIn(500, function(){
 		console.log('timer start');
 		setTimeout(function() {
+			clearInterval(countdown);
 			console.log('timer stop');
 			$('.number_display').fadeOut(500, askNum(_usrSet));
 		}, _time*1000);

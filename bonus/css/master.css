@@ -103,6 +103,9 @@ button:hover {
 button:focus {
 	outline: none;
 }
+.countdown {
+	padding-top: 20px;
+}
 .highlight {
 	color: var(--purple);
 	font-weight: 700;
