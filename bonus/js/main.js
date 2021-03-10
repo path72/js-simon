@@ -1,3 +1,8 @@
+/**
+ * non funziona la ripresa del gioco nella stessa pageview
+ * >>> bloccata ripresa del gioco, necessario refresh
+ */
+
 //###################################################### 
 // DYNAMICS
 
@@ -16,7 +21,6 @@ mainInit();
 // FUNCTIONS
 
 function mainInit() {
-	console.log('--------- mainInit:');
 
 	var usrSet = []; // numeri dell'utente
 	var maxN = 100; // range numerico random
@@ -42,7 +46,7 @@ function mainInit() {
 			console.log('qualcosa non va');
 		} else {
 			
-			usrSet = []; // numeri dell'utente
+			usrSet = [];
 
 			// random number set
 			var numSet = numSetGen(listLength,maxN);
@@ -50,12 +54,10 @@ function mainInit() {
 
 			// form interactions
 			$('#usr_number_btn').click(function() { 
-				console.log('usr_number_btn >>> '+usrSet);
 				getUsrNum(numSet, usrSet); 
 			});
 			$('#usr_number').keyup(function(_ev) {
 				if (_ev.keyCode == 13) { 
-					console.log('usr_number_btn >>> '+usrSet);
 					getUsrNum(numSet, usrSet);  
 				}
 			});	
@@ -70,7 +72,6 @@ function mainInit() {
 }
 
 function numShow(_numSet,_usrSet,_time) {
-	console.log('--------- numShow >>> '+_usrSet);
 
 	// deploy num list
 	for (var i=0; i<_numSet.length; i++) {
@@ -90,7 +91,6 @@ function numShow(_numSet,_usrSet,_time) {
 }
 
 function askNum(_usrSet) {
-	console.log('--------- askNum >>> '+_usrSet);
 
 	// display form
 	askMsgUpdate(_usrSet);
@@ -100,14 +100,12 @@ function askNum(_usrSet) {
 }
 
 function askMsgUpdate(_usrSet) {
-	console.log('--------- askMsgUpdate >>> '+_usrSet);
 
 	$('#usr_number_label').html('Tentativo #'+(_usrSet.length+1));
 
 }
 
 function getUsrNum(_numSet,_usrSet) {
-	console.log('--------- getUsrNum >>> '+_usrSet);
 
 	// form data retrieving
 	var usrNumberForm = $('#usr_number');
@@ -117,14 +115,11 @@ function getUsrNum(_numSet,_usrSet) {
 	// data check
 	if (!_usrSet.includes(usrNum) && !isNaN(usrNum)) {
 		_usrSet.push(usrNum);
-		console.log('caso 1: '+_usrSet);
 	} else {
 		if (isNaN(usrNum)) {
-			$('.msg_text').html(usrNum+' non è un numero, riprova!');
-			console.log('caso 2: '+usrNum+' non è un numero, riprova!');
+			$('.msg_text').html('non c\'è il numero!');
 		} else {
 			$('.msg_text').html(usrNum+' è già presente, riprova!');
-			console.log('caso 3: '+usrNum+' è già presente, riprova!');
 		}
 		$('.msg').fadeIn(500, function(){
 			setTimeout(function() {
@@ -132,6 +127,7 @@ function getUsrNum(_numSet,_usrSet) {
 			}, 1000);
 		});
 	}
+	console.log('usrSet = '+_usrSet);
 
 	// form cleaning
 	usrNumberForm.val('');
@@ -146,7 +142,6 @@ function getUsrNum(_numSet,_usrSet) {
 }
 
 function getResult(_numSet,_usrSet) {
-	console.log('--------- getResult >>> '+_usrSet);
 
 	// right number collection 
 	var areIn = [];
@@ -158,14 +153,12 @@ function getResult(_numSet,_usrSet) {
 	// final message
 	finalMsg(_numSet,areIn);
 
-	// _usrSet = [];
-
 }
 
 function finalMsg(_numSet,_areIn) {
 
 	// final message deploy
-	var msg;
+	var msg = '';
 	if (_areIn.length != 0) {
 		if (_areIn.length == _numSet.length) msg = 'tutti!';
 		else msg = ''+_areIn;
@@ -176,25 +169,22 @@ function finalMsg(_numSet,_areIn) {
 	// message showing
 	$('.result').find('div:nth-child(3)').append(' <span class="highlight">'+_areIn.length+'</span>');
 	$('.result_list').append(msg);
-	$('.result').fadeIn(500, function() {
-		setTimeout(function() {
+	$('.result').fadeIn(500);
 
-			// reset game
-			$('.result').fadeOut(500);
-			$('#usr_list_length').val('');
-			$('#usr_time').val('');
-			$('.num_list').html('');
-			// mainInit();
-
-		}, 4000);
-	});
+	// ripresa del gioco nella stessa pageview 
+	// (non funziona usrNum dal secondo gioco in poi) 
+	// $('.result').fadeIn(500, function() {
+	// 	setTimeout(function() {
+	// 		// reset game
+	// 		$('.result').fadeOut(500);
+	// 		$('#usr_list_length').val('');
+	// 		$('#usr_time').val('');
+	// 		$('.num_list').html('');
+	// 		// mainInit();
+	// 	}, 4000);
+	// });
 
 }
-
-
-
-
-
 
 function numSetGen(_N,_maxN) {
 	var numSet = [];
