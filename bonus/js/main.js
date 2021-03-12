@@ -26,14 +26,13 @@ function mainInit() {
 	var maxN = 100; // range numerico random
 
 	$('.input_form_game').fadeIn(500);
+	$("#usr_list_length").focus();
 
 	$('#usr_game_btn').click(function() { 
 
 		// form data retrieving
-		var usrListLengthForm = $('#usr_list_length');
-		var usrTimeForm = $('#usr_time');
-		listLength = parseInt(usrListLengthForm.val()); // numero di numeri da ricordare
-		time = parseInt(usrTimeForm.val()); // secondi di visualizzazione dei numeri
+		listLength = parseInt($('#usr_list_length').val()); // numero di numeri da ricordare
+		time = parseInt($('#usr_time').val()); // secondi di visualizzazione dei numeri
 
 		// check
 		if (isNaN(listLength) || isNaN(time)) {
